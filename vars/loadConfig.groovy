@@ -1,7 +1,6 @@
-import groovy.yaml.YamlSlurper
-
 def call() {
-    def configFile = libraryResource 'config.yml' 
-    def yaml = new YamlSlurper().parseText(configFile)  
-    return yaml  
+    // Load YAML file using the built-in readYaml step
+    def configFile = libraryResource 'config.yml'  // Load the YAML file as a resource
+    def yaml = readYaml text: configFile  // Parse the YAML content
+    return yaml
 }
