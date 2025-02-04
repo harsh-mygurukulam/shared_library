@@ -1,17 +1,10 @@
 def call() {
-    def config = loadConfig()  
+    def config = loadConfig()  // Load configuration
 
-    if (config.KEEP_APPROVAL_STAGE) {  // Check if approval is required
-        pipeline {
-            stages {
-                stage('User Approval') {
-                    steps {
-                        input message: "Proceed with deployment?", ok: 'Approve'
-                    }
-                }
-            }
-        }
+    if (config.KEEP_APPROVAL_STAGE) {  
+        // If approval is required, echo and skip approval
+        echo "Approval stage skipped, as KEEP_APPROVAL_STAGE is true."
     } else {
-        echo "Skipping approval stage as per config."
+        input message: "Proceed with deployment?", ok: 'Approve'
     }
 }
